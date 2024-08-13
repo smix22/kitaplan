@@ -1,4 +1,4 @@
-package de.netgo.wochenplan;
+package de.netgo.kitaplan;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

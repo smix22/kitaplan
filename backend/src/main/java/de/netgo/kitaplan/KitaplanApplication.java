@@ -1,13 +1,13 @@
-package de.netgo.wochenplan;
+package de.netgo.kitaplan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WochenplanApplication {
+public class KitaplanApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WochenplanApplication.class, args);
+		SpringApplication.run(KitaplanApplication.class, args);
 	}
 
 }

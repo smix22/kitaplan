@@ -1,7 +1,7 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:6432/wp
+    url: jdbc:postgresql://localhost:7432/kp
     username: admin
     password: admin
 
