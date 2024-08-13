@@ -1,3 +1,3 @@
-rootProject.name = 'wochenplan'
+rootProject.name = 'kita'
 include 'backend'
 include 'frontend'
