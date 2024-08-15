@@ -21,24 +21,20 @@ public class Benutzer implements Serializable {
 
     private UUID id;
     private String name;
-    private String rolle;
 
     public Benutzer() {}
 
     public Benutzer(Benutzer value) {
         this.id = value.id;
         this.name = value.name;
-        this.rolle = value.rolle;
     }
 
     public Benutzer(
         UUID id,
-        String name,
-        String rolle
+        String name
     ) {
         this.id = id;
         this.name = name;
-        this.rolle = rolle;
     }
 
     /**
@@ -73,22 +69,6 @@ public class Benutzer implements Serializable {
         return this;
     }
 
-    /**
-     * Getter for <code>public.benutzer.rolle</code>.
-     */
-    @Size(max = 255)
-    public String getRolle() {
-        return this.rolle;
-    }
-
-    /**
-     * Setter for <code>public.benutzer.rolle</code>.
-     */
-    public Benutzer setRolle(String rolle) {
-        this.rolle = rolle;
-        return this;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -110,12 +90,6 @@ public class Benutzer implements Serializable {
         }
         else if (!this.name.equals(other.name))
             return false;
-        if (this.rolle == null) {
-            if (other.rolle != null)
-                return false;
-        }
-        else if (!this.rolle.equals(other.rolle))
-            return false;
         return true;
     }
 
@@ -125,7 +99,6 @@ public class Benutzer implements Serializable {
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-        result = prime * result + ((this.rolle == null) ? 0 : this.rolle.hashCode());
         return result;
     }
 
@@ -135,7 +108,6 @@ public class Benutzer implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(name);
-        sb.append(", ").append(rolle);
 
         sb.append(")");
         return sb.toString();

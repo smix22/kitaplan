@@ -4,6 +4,8 @@
 package de.netgo.kitaplan.jooq.tables.pojos;
 
 
+import jakarta.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -37,6 +39,7 @@ public class BenutzerPlan implements Serializable {
     /**
      * Getter for <code>public.benutzer_plan.benutzer_id</code>.
      */
+    @NotNull
     public UUID getBenutzerId() {
         return this.benutzerId;
     }
@@ -52,6 +55,7 @@ public class BenutzerPlan implements Serializable {
     /**
      * Getter for <code>public.benutzer_plan.plan_id</code>.
      */
+    @NotNull
     public UUID getPlanId() {
         return this.planId;
     }

@@ -55,22 +55,6 @@ public class BenutzerRecord extends UpdatableRecordImpl<BenutzerRecord> {
         return (String) get(1);
     }
 
-    /**
-     * Setter for <code>public.benutzer.rolle</code>.
-     */
-    public BenutzerRecord setRolle(String value) {
-        set(2, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.benutzer.rolle</code>.
-     */
-    @Size(max = 255)
-    public String getRolle() {
-        return (String) get(2);
-    }
-
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -94,12 +78,11 @@ public class BenutzerRecord extends UpdatableRecordImpl<BenutzerRecord> {
     /**
      * Create a detached, initialised BenutzerRecord
      */
-    public BenutzerRecord(UUID id, String name, String rolle) {
+    public BenutzerRecord(UUID id, String name) {
         super(Benutzer.BENUTZER);
 
         setId(id);
         setName(name);
-        setRolle(rolle);
         resetChangedOnNotNull();
     }
 
@@ -112,7 +95,6 @@ public class BenutzerRecord extends UpdatableRecordImpl<BenutzerRecord> {
         if (value != null) {
             setId(value.getId());
             setName(value.getName());
-            setRolle(value.getRolle());
             resetChangedOnNotNull();
         }
     }

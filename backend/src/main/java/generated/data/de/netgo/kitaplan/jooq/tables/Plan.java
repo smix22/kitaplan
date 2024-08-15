@@ -6,10 +6,12 @@ package de.netgo.kitaplan.jooq.tables;
 
 import de.netgo.kitaplan.jooq.Keys;
 import de.netgo.kitaplan.jooq.Public;
+import de.netgo.kitaplan.jooq.tables.Benutzer.BenutzerPath;
 import de.netgo.kitaplan.jooq.tables.BenutzerPlan.BenutzerPlanPath;
 import de.netgo.kitaplan.jooq.tables.records.PlanRecord;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -62,14 +64,39 @@ public class Plan extends TableImpl<PlanRecord> {
     public final TableField<PlanRecord, UUID> ID = createField(DSL.name("id"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
-     * The column <code>public.plan.tag</code>.
+     * The column <code>public.plan.woche</code>.
      */
-    public final TableField<PlanRecord, String> TAG = createField(DSL.name("tag"), SQLDataType.VARCHAR(255), this, "");
+    public final TableField<PlanRecord, String> WOCHE = createField(DSL.name("woche"), SQLDataType.VARCHAR(255), this, "");
+
+    /**
+     * The column <code>public.plan.wochentag</code>.
+     */
+    public final TableField<PlanRecord, String> WOCHENTAG = createField(DSL.name("wochentag"), SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>public.plan.datum</code>.
      */
     public final TableField<PlanRecord, LocalDate> DATUM = createField(DSL.name("datum"), SQLDataType.LOCALDATE, this, "");
+
+    /**
+     * The column <code>public.plan.wald</code>.
+     */
+    public final TableField<PlanRecord, Boolean> WALD = createField(DSL.name("wald"), SQLDataType.BOOLEAN, this, "");
+
+    /**
+     * The column <code>public.plan.start</code>.
+     */
+    public final TableField<PlanRecord, LocalTime> START = createField(DSL.name("start"), SQLDataType.LOCALTIME(6), this, "");
+
+    /**
+     * The column <code>public.plan.ende</code>.
+     */
+    public final TableField<PlanRecord, LocalTime> ENDE = createField(DSL.name("ende"), SQLDataType.LOCALTIME(6), this, "");
+
+    /**
+     * The column <code>public.plan.abfahrt</code>.
+     */
+    public final TableField<PlanRecord, LocalTime> ABFAHRT = createField(DSL.name("abfahrt"), SQLDataType.LOCALTIME(6), this, "");
 
     private Plan(Name alias, Table<PlanRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
@@ -152,6 +179,14 @@ public class Plan extends TableImpl<PlanRecord> {
             _benutzerPlan = new BenutzerPlanPath(this, null, Keys.BENUTZER_PLAN__BENUTZER_PLAN_PLAN_ID_FKEY.getInverseKey());
 
         return _benutzerPlan;
+    }
+
+    /**
+     * Get the implicit many-to-many join path to the
+     * <code>public.benutzer</code> table
+     */
+    public BenutzerPath benutzer() {
+        return benutzerPlan().benutzer();
     }
 
     @Override

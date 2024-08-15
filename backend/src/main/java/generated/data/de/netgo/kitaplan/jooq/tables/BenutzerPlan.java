@@ -31,6 +31,7 @@ import org.jooq.Stringly;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
+import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
@@ -60,12 +61,12 @@ public class BenutzerPlan extends TableImpl<BenutzerPlanRecord> {
     /**
      * The column <code>public.benutzer_plan.benutzer_id</code>.
      */
-    public final TableField<BenutzerPlanRecord, UUID> BENUTZER_ID = createField(DSL.name("benutzer_id"), SQLDataType.UUID, this, "");
+    public final TableField<BenutzerPlanRecord, UUID> BENUTZER_ID = createField(DSL.name("benutzer_id"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.benutzer_plan.plan_id</code>.
      */
-    public final TableField<BenutzerPlanRecord, UUID> PLAN_ID = createField(DSL.name("plan_id"), SQLDataType.UUID, this, "");
+    public final TableField<BenutzerPlanRecord, UUID> PLAN_ID = createField(DSL.name("plan_id"), SQLDataType.UUID.nullable(false), this, "");
 
     private BenutzerPlan(Name alias, Table<BenutzerPlanRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
@@ -130,6 +131,11 @@ public class BenutzerPlan extends TableImpl<BenutzerPlanRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
+    }
+
+    @Override
+    public UniqueKey<BenutzerPlanRecord> getPrimaryKey() {
+        return Keys.BENUTZER_PLAN_PKEY;
     }
 
     @Override

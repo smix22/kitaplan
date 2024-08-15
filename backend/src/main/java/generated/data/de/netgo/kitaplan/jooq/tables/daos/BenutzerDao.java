@@ -87,19 +87,4 @@ public class BenutzerDao extends DAOImpl<BenutzerRecord, de.netgo.kitaplan.jooq.
     public List<de.netgo.kitaplan.jooq.tables.pojos.Benutzer> fetchByName(String... values) {
         return fetch(Benutzer.BENUTZER.NAME, values);
     }
-
-    /**
-     * Fetch records that have <code>rolle BETWEEN lowerInclusive AND
-     * upperInclusive</code>
-     */
-    public List<de.netgo.kitaplan.jooq.tables.pojos.Benutzer> fetchRangeOfRolle(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Benutzer.BENUTZER.ROLLE, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>rolle IN (values)</code>
-     */
-    public List<de.netgo.kitaplan.jooq.tables.pojos.Benutzer> fetchByRolle(String... values) {
-        return fetch(Benutzer.BENUTZER.ROLLE, values);
-    }
 }

@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-import PlanView from '@/views/PlanView.vue'
+import UserView from "@/views/UserView.vue";
 </script>
 
 <template>
-  <plan-view />
+  <user-view/>
 </template>
 
 <style scoped>

@@ -8,6 +8,7 @@ import de.netgo.kitaplan.jooq.tables.Plan;
 import de.netgo.kitaplan.jooq.tables.records.PlanRecord;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -75,18 +76,33 @@ public class PlanDao extends DAOImpl<PlanRecord, de.netgo.kitaplan.jooq.tables.p
     }
 
     /**
-     * Fetch records that have <code>tag BETWEEN lowerInclusive AND
+     * Fetch records that have <code>woche BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchRangeOfTag(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Plan.PLAN.TAG, lowerInclusive, upperInclusive);
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchRangeOfWoche(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Plan.PLAN.WOCHE, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>tag IN (values)</code>
+     * Fetch records that have <code>woche IN (values)</code>
      */
-    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchByTag(String... values) {
-        return fetch(Plan.PLAN.TAG, values);
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchByWoche(String... values) {
+        return fetch(Plan.PLAN.WOCHE, values);
+    }
+
+    /**
+     * Fetch records that have <code>wochentag BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchRangeOfWochentag(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Plan.PLAN.WOCHENTAG, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>wochentag IN (values)</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchByWochentag(String... values) {
+        return fetch(Plan.PLAN.WOCHENTAG, values);
     }
 
     /**
@@ -102,5 +118,65 @@ public class PlanDao extends DAOImpl<PlanRecord, de.netgo.kitaplan.jooq.tables.p
      */
     public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchByDatum(LocalDate... values) {
         return fetch(Plan.PLAN.DATUM, values);
+    }
+
+    /**
+     * Fetch records that have <code>wald BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchRangeOfWald(Boolean lowerInclusive, Boolean upperInclusive) {
+        return fetchRange(Plan.PLAN.WALD, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>wald IN (values)</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchByWald(Boolean... values) {
+        return fetch(Plan.PLAN.WALD, values);
+    }
+
+    /**
+     * Fetch records that have <code>start BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchRangeOfStart(LocalTime lowerInclusive, LocalTime upperInclusive) {
+        return fetchRange(Plan.PLAN.START, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>start IN (values)</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchByStart(LocalTime... values) {
+        return fetch(Plan.PLAN.START, values);
+    }
+
+    /**
+     * Fetch records that have <code>ende BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchRangeOfEnde(LocalTime lowerInclusive, LocalTime upperInclusive) {
+        return fetchRange(Plan.PLAN.ENDE, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>ende IN (values)</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchByEnde(LocalTime... values) {
+        return fetch(Plan.PLAN.ENDE, values);
+    }
+
+    /**
+     * Fetch records that have <code>abfahrt BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchRangeOfAbfahrt(LocalTime lowerInclusive, LocalTime upperInclusive) {
+        return fetchRange(Plan.PLAN.ABFAHRT, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>abfahrt IN (values)</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchByAbfahrt(LocalTime... values) {
+        return fetch(Plan.PLAN.ABFAHRT, values);
     }
 }

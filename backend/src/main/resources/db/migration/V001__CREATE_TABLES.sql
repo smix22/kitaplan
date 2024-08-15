@@ -1,16 +1,20 @@
 create table benutzer
 (
-    id    uuid,
-    name  varchar(255),
-    rolle varchar(255),
+    id   uuid,
+    name varchar(255),
     primary key (id)
 );
 
 create table plan
 (
-    id    uuid,
-    tag   varchar(255),
-    datum date,
+    id        uuid,
+    woche     varchar(255),
+    wochentag varchar(255),
+    datum     date,
+    wald      boolean,
+    start     time,
+    ende      time,
+    abfahrt   time,
     primary key (id)
 );
 

@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 import org.jooq.Record1;
@@ -41,26 +42,42 @@ public class PlanRecord extends UpdatableRecordImpl<PlanRecord> {
     }
 
     /**
-     * Setter for <code>public.plan.tag</code>.
+     * Setter for <code>public.plan.woche</code>.
      */
-    public PlanRecord setTag(String value) {
+    public PlanRecord setWoche(String value) {
         set(1, value);
         return this;
     }
 
     /**
-     * Getter for <code>public.plan.tag</code>.
+     * Getter for <code>public.plan.woche</code>.
      */
     @Size(max = 255)
-    public String getTag() {
+    public String getWoche() {
         return (String) get(1);
+    }
+
+    /**
+     * Setter for <code>public.plan.wochentag</code>.
+     */
+    public PlanRecord setWochentag(String value) {
+        set(2, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.plan.wochentag</code>.
+     */
+    @Size(max = 255)
+    public String getWochentag() {
+        return (String) get(2);
     }
 
     /**
      * Setter for <code>public.plan.datum</code>.
      */
     public PlanRecord setDatum(LocalDate value) {
-        set(2, value);
+        set(3, value);
         return this;
     }
 
@@ -68,7 +85,67 @@ public class PlanRecord extends UpdatableRecordImpl<PlanRecord> {
      * Getter for <code>public.plan.datum</code>.
      */
     public LocalDate getDatum() {
-        return (LocalDate) get(2);
+        return (LocalDate) get(3);
+    }
+
+    /**
+     * Setter for <code>public.plan.wald</code>.
+     */
+    public PlanRecord setWald(Boolean value) {
+        set(4, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.plan.wald</code>.
+     */
+    public Boolean getWald() {
+        return (Boolean) get(4);
+    }
+
+    /**
+     * Setter for <code>public.plan.start</code>.
+     */
+    public PlanRecord setStart(LocalTime value) {
+        set(5, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.plan.start</code>.
+     */
+    public LocalTime getStart() {
+        return (LocalTime) get(5);
+    }
+
+    /**
+     * Setter for <code>public.plan.ende</code>.
+     */
+    public PlanRecord setEnde(LocalTime value) {
+        set(6, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.plan.ende</code>.
+     */
+    public LocalTime getEnde() {
+        return (LocalTime) get(6);
+    }
+
+    /**
+     * Setter for <code>public.plan.abfahrt</code>.
+     */
+    public PlanRecord setAbfahrt(LocalTime value) {
+        set(7, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.plan.abfahrt</code>.
+     */
+    public LocalTime getAbfahrt() {
+        return (LocalTime) get(7);
     }
 
     // -------------------------------------------------------------------------
@@ -94,12 +171,17 @@ public class PlanRecord extends UpdatableRecordImpl<PlanRecord> {
     /**
      * Create a detached, initialised PlanRecord
      */
-    public PlanRecord(UUID id, String tag, LocalDate datum) {
+    public PlanRecord(UUID id, String woche, String wochentag, LocalDate datum, Boolean wald, LocalTime start, LocalTime ende, LocalTime abfahrt) {
         super(Plan.PLAN);
 
         setId(id);
-        setTag(tag);
+        setWoche(woche);
+        setWochentag(wochentag);
         setDatum(datum);
+        setWald(wald);
+        setStart(start);
+        setEnde(ende);
+        setAbfahrt(abfahrt);
         resetChangedOnNotNull();
     }
 
@@ -111,8 +193,13 @@ public class PlanRecord extends UpdatableRecordImpl<PlanRecord> {
 
         if (value != null) {
             setId(value.getId());
-            setTag(value.getTag());
+            setWoche(value.getWoche());
+            setWochentag(value.getWochentag());
             setDatum(value.getDatum());
+            setWald(value.getWald());
+            setStart(value.getStart());
+            setEnde(value.getEnde());
+            setAbfahrt(value.getAbfahrt());
             resetChangedOnNotNull();
         }
     }
