@@ -30,6 +30,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<BenutzerRecord> BENUTZER_PKEY = Internal.createUniqueKey(Benutzer.BENUTZER, DSL.name("benutzer_pkey"), new TableField[] { Benutzer.BENUTZER.ID }, true);
+    public static final UniqueKey<BenutzerPlanRecord> BENUTZER_PLAN_PKEY = Internal.createUniqueKey(BenutzerPlan.BENUTZER_PLAN, DSL.name("benutzer_plan_pkey"), new TableField[] { BenutzerPlan.BENUTZER_PLAN.BENUTZER_ID, BenutzerPlan.BENUTZER_PLAN.PLAN_ID }, true);
     public static final UniqueKey<PlanRecord> PLAN_PKEY = Internal.createUniqueKey(Plan.PLAN, DSL.name("plan_pkey"), new TableField[] { Plan.PLAN.ID }, true);
 
     // -------------------------------------------------------------------------

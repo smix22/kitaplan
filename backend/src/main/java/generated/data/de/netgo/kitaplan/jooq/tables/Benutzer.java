@@ -7,6 +7,7 @@ package de.netgo.kitaplan.jooq.tables;
 import de.netgo.kitaplan.jooq.Keys;
 import de.netgo.kitaplan.jooq.Public;
 import de.netgo.kitaplan.jooq.tables.BenutzerPlan.BenutzerPlanPath;
+import de.netgo.kitaplan.jooq.tables.Plan.PlanPath;
 import de.netgo.kitaplan.jooq.tables.records.BenutzerRecord;
 
 import java.util.Collection;
@@ -64,11 +65,6 @@ public class Benutzer extends TableImpl<BenutzerRecord> {
      * The column <code>public.benutzer.name</code>.
      */
     public final TableField<BenutzerRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(255), this, "");
-
-    /**
-     * The column <code>public.benutzer.rolle</code>.
-     */
-    public final TableField<BenutzerRecord, String> ROLLE = createField(DSL.name("rolle"), SQLDataType.VARCHAR(255), this, "");
 
     private Benutzer(Name alias, Table<BenutzerRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
@@ -151,6 +147,14 @@ public class Benutzer extends TableImpl<BenutzerRecord> {
             _benutzerPlan = new BenutzerPlanPath(this, null, Keys.BENUTZER_PLAN__BENUTZER_PLAN_BENUTZER_ID_FKEY.getInverseKey());
 
         return _benutzerPlan;
+    }
+
+    /**
+     * Get the implicit many-to-many join path to the <code>public.plan</code>
+     * table
+     */
+    public PlanPath plan() {
+        return benutzerPlan().plan();
     }
 
     @Override
