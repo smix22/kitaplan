@@ -4,7 +4,6 @@
 package de.netgo.kitaplan.jooq.tables.pojos;
 
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
@@ -23,50 +22,53 @@ public class Plan implements Serializable {
 
     private UUID id;
     private String woche;
-    private String wochentag;
     private LocalDate datum;
     private Boolean wald;
+    private Boolean offen;
     private LocalTime start;
     private LocalTime ende;
     private LocalTime abfahrt;
+    private String kommentar;
 
     public Plan() {}
 
     public Plan(Plan value) {
         this.id = value.id;
         this.woche = value.woche;
-        this.wochentag = value.wochentag;
         this.datum = value.datum;
         this.wald = value.wald;
+        this.offen = value.offen;
         this.start = value.start;
         this.ende = value.ende;
         this.abfahrt = value.abfahrt;
+        this.kommentar = value.kommentar;
     }
 
     public Plan(
         UUID id,
         String woche,
-        String wochentag,
         LocalDate datum,
         Boolean wald,
+        Boolean offen,
         LocalTime start,
         LocalTime ende,
-        LocalTime abfahrt
+        LocalTime abfahrt,
+        String kommentar
     ) {
         this.id = id;
         this.woche = woche;
-        this.wochentag = wochentag;
         this.datum = datum;
         this.wald = wald;
+        this.offen = offen;
         this.start = start;
         this.ende = ende;
         this.abfahrt = abfahrt;
+        this.kommentar = kommentar;
     }
 
     /**
      * Getter for <code>public.plan.id</code>.
      */
-    @NotNull
     public UUID getId() {
         return this.id;
     }
@@ -92,22 +94,6 @@ public class Plan implements Serializable {
      */
     public Plan setWoche(String woche) {
         this.woche = woche;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.plan.wochentag</code>.
-     */
-    @Size(max = 255)
-    public String getWochentag() {
-        return this.wochentag;
-    }
-
-    /**
-     * Setter for <code>public.plan.wochentag</code>.
-     */
-    public Plan setWochentag(String wochentag) {
-        this.wochentag = wochentag;
         return this;
     }
 
@@ -138,6 +124,21 @@ public class Plan implements Serializable {
      */
     public Plan setWald(Boolean wald) {
         this.wald = wald;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.plan.offen</code>.
+     */
+    public Boolean getOffen() {
+        return this.offen;
+    }
+
+    /**
+     * Setter for <code>public.plan.offen</code>.
+     */
+    public Plan setOffen(Boolean offen) {
+        this.offen = offen;
         return this;
     }
 
@@ -186,6 +187,22 @@ public class Plan implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.plan.kommentar</code>.
+     */
+    @Size(max = 255)
+    public String getKommentar() {
+        return this.kommentar;
+    }
+
+    /**
+     * Setter for <code>public.plan.kommentar</code>.
+     */
+    public Plan setKommentar(String kommentar) {
+        this.kommentar = kommentar;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -207,12 +224,6 @@ public class Plan implements Serializable {
         }
         else if (!this.woche.equals(other.woche))
             return false;
-        if (this.wochentag == null) {
-            if (other.wochentag != null)
-                return false;
-        }
-        else if (!this.wochentag.equals(other.wochentag))
-            return false;
         if (this.datum == null) {
             if (other.datum != null)
                 return false;
@@ -224,6 +235,12 @@ public class Plan implements Serializable {
                 return false;
         }
         else if (!this.wald.equals(other.wald))
+            return false;
+        if (this.offen == null) {
+            if (other.offen != null)
+                return false;
+        }
+        else if (!this.offen.equals(other.offen))
             return false;
         if (this.start == null) {
             if (other.start != null)
@@ -243,6 +260,12 @@ public class Plan implements Serializable {
         }
         else if (!this.abfahrt.equals(other.abfahrt))
             return false;
+        if (this.kommentar == null) {
+            if (other.kommentar != null)
+                return false;
+        }
+        else if (!this.kommentar.equals(other.kommentar))
+            return false;
         return true;
     }
 
@@ -252,12 +275,13 @@ public class Plan implements Serializable {
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = prime * result + ((this.woche == null) ? 0 : this.woche.hashCode());
-        result = prime * result + ((this.wochentag == null) ? 0 : this.wochentag.hashCode());
         result = prime * result + ((this.datum == null) ? 0 : this.datum.hashCode());
         result = prime * result + ((this.wald == null) ? 0 : this.wald.hashCode());
+        result = prime * result + ((this.offen == null) ? 0 : this.offen.hashCode());
         result = prime * result + ((this.start == null) ? 0 : this.start.hashCode());
         result = prime * result + ((this.ende == null) ? 0 : this.ende.hashCode());
         result = prime * result + ((this.abfahrt == null) ? 0 : this.abfahrt.hashCode());
+        result = prime * result + ((this.kommentar == null) ? 0 : this.kommentar.hashCode());
         return result;
     }
 
@@ -267,12 +291,13 @@ public class Plan implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(woche);
-        sb.append(", ").append(wochentag);
         sb.append(", ").append(datum);
         sb.append(", ").append(wald);
+        sb.append(", ").append(offen);
         sb.append(", ").append(start);
         sb.append(", ").append(ende);
         sb.append(", ").append(abfahrt);
+        sb.append(", ").append(kommentar);
 
         sb.append(")");
         return sb.toString();

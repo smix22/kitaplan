@@ -18,7 +18,7 @@ try {
     onLoad: 'check-sso'
   });
   console.log(`User is ${authenticated ? 'authenticated' : 'not authenticated'}`);
-  console.log(keycloak.token);
+  // console.log(keycloak.token);
 } catch (error) {
   console.error('Failed to initialize adapter:', error);
 }
@@ -32,9 +32,9 @@ window.fetch = (input: RequestInfo | URL, init?: RequestInit | undefined) => {
     return _fetch(input, init)
   }
 
-
   return _fetch(input, {
     ...init, headers: {
+      ...init?.headers,
       "Authorization": `Bearer ${token}`
     }
   })

@@ -1,15 +1,17 @@
 :root {
-  --pf-global--primary-color--100: #b3c9cf;
+  --pf-global--primary-color--100: forestgreen;
   --pf-global--primary-color--200: #80a6af;
   --pf-global--primary-color--500: #004c5e;
   --pf-c-button--m-primary--BackgroundColor: #004c5e;
   --pf-c-button--disabled--Color: #004c5e;
-  --default-background-color: #97A1CDFF;
-  --link-hover-color: #004c5e;
+  --default-background-color: white;
+  --link-hover-color: forestgreen;
 }
 
 .login-pf body {
-linear-gradient(135 deg, var(--default-background-color) 0 %, #A96699FF 100 %);
+  background-color: white;
+  background-size: cover;
+  height: 100%;
 }
 
 .login-pf a:hover {
@@ -22,7 +24,7 @@ linear-gradient(135 deg, var(--default-background-color) 0 %, #A96699FF 100 %);
 }
 
 .pf-c-button.pf-m-primary {
-  background-color: var(--pf-global--primary-color--500);
+  background-color: forestgreen;
 }
 
 .pf-m-primary:hover {
@@ -38,5 +40,5 @@ linear-gradient(135 deg, var(--default-background-color) 0 %, #A96699FF 100 %);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0 0 0 /50%);
+  /*background: rgba(0 0 0 /50%);*/
 }

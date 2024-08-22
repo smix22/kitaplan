@@ -6,7 +6,6 @@ package de.netgo.kitaplan.jooq.tables.records;
 
 import de.netgo.kitaplan.jooq.tables.Plan;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
@@ -36,7 +35,6 @@ public class PlanRecord extends UpdatableRecordImpl<PlanRecord> {
     /**
      * Getter for <code>public.plan.id</code>.
      */
-    @NotNull
     public UUID getId() {
         return (UUID) get(0);
     }
@@ -58,26 +56,10 @@ public class PlanRecord extends UpdatableRecordImpl<PlanRecord> {
     }
 
     /**
-     * Setter for <code>public.plan.wochentag</code>.
-     */
-    public PlanRecord setWochentag(String value) {
-        set(2, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.plan.wochentag</code>.
-     */
-    @Size(max = 255)
-    public String getWochentag() {
-        return (String) get(2);
-    }
-
-    /**
      * Setter for <code>public.plan.datum</code>.
      */
     public PlanRecord setDatum(LocalDate value) {
-        set(3, value);
+        set(2, value);
         return this;
     }
 
@@ -85,14 +67,14 @@ public class PlanRecord extends UpdatableRecordImpl<PlanRecord> {
      * Getter for <code>public.plan.datum</code>.
      */
     public LocalDate getDatum() {
-        return (LocalDate) get(3);
+        return (LocalDate) get(2);
     }
 
     /**
      * Setter for <code>public.plan.wald</code>.
      */
     public PlanRecord setWald(Boolean value) {
-        set(4, value);
+        set(3, value);
         return this;
     }
 
@@ -100,6 +82,21 @@ public class PlanRecord extends UpdatableRecordImpl<PlanRecord> {
      * Getter for <code>public.plan.wald</code>.
      */
     public Boolean getWald() {
+        return (Boolean) get(3);
+    }
+
+    /**
+     * Setter for <code>public.plan.offen</code>.
+     */
+    public PlanRecord setOffen(Boolean value) {
+        set(4, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.plan.offen</code>.
+     */
+    public Boolean getOffen() {
         return (Boolean) get(4);
     }
 
@@ -148,6 +145,22 @@ public class PlanRecord extends UpdatableRecordImpl<PlanRecord> {
         return (LocalTime) get(7);
     }
 
+    /**
+     * Setter for <code>public.plan.kommentar</code>.
+     */
+    public PlanRecord setKommentar(String value) {
+        set(8, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.plan.kommentar</code>.
+     */
+    @Size(max = 255)
+    public String getKommentar() {
+        return (String) get(8);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -171,17 +184,18 @@ public class PlanRecord extends UpdatableRecordImpl<PlanRecord> {
     /**
      * Create a detached, initialised PlanRecord
      */
-    public PlanRecord(UUID id, String woche, String wochentag, LocalDate datum, Boolean wald, LocalTime start, LocalTime ende, LocalTime abfahrt) {
+    public PlanRecord(UUID id, String woche, LocalDate datum, Boolean wald, Boolean offen, LocalTime start, LocalTime ende, LocalTime abfahrt, String kommentar) {
         super(Plan.PLAN);
 
         setId(id);
         setWoche(woche);
-        setWochentag(wochentag);
         setDatum(datum);
         setWald(wald);
+        setOffen(offen);
         setStart(start);
         setEnde(ende);
         setAbfahrt(abfahrt);
+        setKommentar(kommentar);
         resetChangedOnNotNull();
     }
 
@@ -194,12 +208,13 @@ public class PlanRecord extends UpdatableRecordImpl<PlanRecord> {
         if (value != null) {
             setId(value.getId());
             setWoche(value.getWoche());
-            setWochentag(value.getWochentag());
             setDatum(value.getDatum());
             setWald(value.getWald());
+            setOffen(value.getOffen());
             setStart(value.getStart());
             setEnde(value.getEnde());
             setAbfahrt(value.getAbfahrt());
+            setKommentar(value.getKommentar());
             resetChangedOnNotNull();
         }
     }

@@ -61,17 +61,12 @@ public class Plan extends TableImpl<PlanRecord> {
     /**
      * The column <code>public.plan.id</code>.
      */
-    public final TableField<PlanRecord, UUID> ID = createField(DSL.name("id"), SQLDataType.UUID.nullable(false), this, "");
+    public final TableField<PlanRecord, UUID> ID = createField(DSL.name("id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("uuid_generate_v4()"), SQLDataType.UUID)), this, "");
 
     /**
      * The column <code>public.plan.woche</code>.
      */
     public final TableField<PlanRecord, String> WOCHE = createField(DSL.name("woche"), SQLDataType.VARCHAR(255), this, "");
-
-    /**
-     * The column <code>public.plan.wochentag</code>.
-     */
-    public final TableField<PlanRecord, String> WOCHENTAG = createField(DSL.name("wochentag"), SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>public.plan.datum</code>.
@@ -81,22 +76,32 @@ public class Plan extends TableImpl<PlanRecord> {
     /**
      * The column <code>public.plan.wald</code>.
      */
-    public final TableField<PlanRecord, Boolean> WALD = createField(DSL.name("wald"), SQLDataType.BOOLEAN, this, "");
+    public final TableField<PlanRecord, Boolean> WALD = createField(DSL.name("wald"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("true"), SQLDataType.BOOLEAN)), this, "");
+
+    /**
+     * The column <code>public.plan.offen</code>.
+     */
+    public final TableField<PlanRecord, Boolean> OFFEN = createField(DSL.name("offen"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("true"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.plan.start</code>.
      */
-    public final TableField<PlanRecord, LocalTime> START = createField(DSL.name("start"), SQLDataType.LOCALTIME(6), this, "");
+    public final TableField<PlanRecord, LocalTime> START = createField(DSL.name("start"), SQLDataType.LOCALTIME(6).nullable(false).defaultValue(DSL.field(DSL.raw("'08:00:00'::time without time zone"), SQLDataType.LOCALTIME)), this, "");
 
     /**
      * The column <code>public.plan.ende</code>.
      */
-    public final TableField<PlanRecord, LocalTime> ENDE = createField(DSL.name("ende"), SQLDataType.LOCALTIME(6), this, "");
+    public final TableField<PlanRecord, LocalTime> ENDE = createField(DSL.name("ende"), SQLDataType.LOCALTIME(6).nullable(false).defaultValue(DSL.field(DSL.raw("'16:30:00'::time without time zone"), SQLDataType.LOCALTIME)), this, "");
 
     /**
      * The column <code>public.plan.abfahrt</code>.
      */
-    public final TableField<PlanRecord, LocalTime> ABFAHRT = createField(DSL.name("abfahrt"), SQLDataType.LOCALTIME(6), this, "");
+    public final TableField<PlanRecord, LocalTime> ABFAHRT = createField(DSL.name("abfahrt"), SQLDataType.LOCALTIME(6).nullable(false).defaultValue(DSL.field(DSL.raw("'08:30:00'::time without time zone"), SQLDataType.LOCALTIME)), this, "");
+
+    /**
+     * The column <code>public.plan.kommentar</code>.
+     */
+    public final TableField<PlanRecord, String> KOMMENTAR = createField(DSL.name("kommentar"), SQLDataType.VARCHAR(255), this, "");
 
     private Plan(Name alias, Table<PlanRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);

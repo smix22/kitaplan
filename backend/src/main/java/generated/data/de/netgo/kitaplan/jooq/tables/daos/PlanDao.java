@@ -91,21 +91,6 @@ public class PlanDao extends DAOImpl<PlanRecord, de.netgo.kitaplan.jooq.tables.p
     }
 
     /**
-     * Fetch records that have <code>wochentag BETWEEN lowerInclusive AND
-     * upperInclusive</code>
-     */
-    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchRangeOfWochentag(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Plan.PLAN.WOCHENTAG, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>wochentag IN (values)</code>
-     */
-    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchByWochentag(String... values) {
-        return fetch(Plan.PLAN.WOCHENTAG, values);
-    }
-
-    /**
      * Fetch records that have <code>datum BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
@@ -133,6 +118,21 @@ public class PlanDao extends DAOImpl<PlanRecord, de.netgo.kitaplan.jooq.tables.p
      */
     public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchByWald(Boolean... values) {
         return fetch(Plan.PLAN.WALD, values);
+    }
+
+    /**
+     * Fetch records that have <code>offen BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchRangeOfOffen(Boolean lowerInclusive, Boolean upperInclusive) {
+        return fetchRange(Plan.PLAN.OFFEN, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>offen IN (values)</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchByOffen(Boolean... values) {
+        return fetch(Plan.PLAN.OFFEN, values);
     }
 
     /**
@@ -178,5 +178,20 @@ public class PlanDao extends DAOImpl<PlanRecord, de.netgo.kitaplan.jooq.tables.p
      */
     public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchByAbfahrt(LocalTime... values) {
         return fetch(Plan.PLAN.ABFAHRT, values);
+    }
+
+    /**
+     * Fetch records that have <code>kommentar BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchRangeOfKommentar(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Plan.PLAN.KOMMENTAR, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>kommentar IN (values)</code>
+     */
+    public List<de.netgo.kitaplan.jooq.tables.pojos.Plan> fetchByKommentar(String... values) {
+        return fetch(Plan.PLAN.KOMMENTAR, values);
     }
 }
