@@ -1,16 +1,19 @@
 package de.netgo.kitaplan.plan;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 public class PlanDto {
   private UUID id;
   private String woche;
-  private String wochentag;
-  private String datum;
+  private LocalDate datum;
   private boolean wald;
-  private String start;
-  private String ende;
-  private String abfahrt;
+  private boolean offen;
+  private LocalTime start;
+  private LocalTime ende;
+  private LocalTime abfahrt;
+  private String kommentar;
 
   public UUID getId() {
     return id;
@@ -30,20 +33,11 @@ public class PlanDto {
     return this;
   }
 
-  public String getWochentag() {
-    return wochentag;
-  }
-
-  public PlanDto setWochentag(final String wochentag) {
-    this.wochentag = wochentag;
-    return this;
-  }
-
-  public String getDatum() {
+  public LocalDate getDatum() {
     return datum;
   }
 
-  public PlanDto setDatum(final String datum) {
+  public PlanDto setDatum(final LocalDate datum) {
     this.datum = datum;
     return this;
   }
@@ -57,30 +51,48 @@ public class PlanDto {
     return this;
   }
 
-  public String getStart() {
+  public boolean isOffen() {
+    return offen;
+  }
+
+  public PlanDto setOffen(final boolean offen) {
+    this.offen = offen;
+    return this;
+  }
+
+  public LocalTime getStart() {
     return start;
   }
 
-  public PlanDto setStart(final String start) {
+  public PlanDto setStart(final LocalTime start) {
     this.start = start;
     return this;
   }
 
-  public String getEnde() {
+  public LocalTime getEnde() {
     return ende;
   }
 
-  public PlanDto setEnde(final String ende) {
+  public PlanDto setEnde(final LocalTime ende) {
     this.ende = ende;
     return this;
   }
 
-  public String getAbfahrt() {
+  public LocalTime getAbfahrt() {
     return abfahrt;
   }
 
-  public PlanDto setAbfahrt(final String abfahrt) {
+  public PlanDto setAbfahrt(final LocalTime abfahrt) {
     this.abfahrt = abfahrt;
+    return this;
+  }
+
+  public String getKommentar() {
+    return kommentar;
+  }
+
+  public PlanDto setKommentar(final String kommentar) {
+    this.kommentar = kommentar;
     return this;
   }
 }

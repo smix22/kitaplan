@@ -2,134 +2,95 @@
 import {ref} from "vue";
 import {keycloak} from "@/main";
 
-const benutzer = ref()
-const plaene = ref()
 const wochenplan = ref()
 
-async function _fetch() {
-  benutzer.value = await (await fetch(`/api/benutzer`)).json();
-  console.log(benutzer.value)
+async function _fetchPlanByDatum() {
+  const heute = new Date().getDay()
+  if (heute >= 1 && heute <= 5) {
+    const datum = new Date().toISOString().substring(0, 10);
+    wochenplan.value = await (await fetch(`/api/public/plan/woche/${datum}`)).json();
+  } else {
+    const naechsteWoche = new Date();
+    naechsteWoche.setDate(naechsteWoche.getDate() + 2);
+    const datum = naechsteWoche.toISOString().substring(0, 10);
+    wochenplan.value = await (await fetch(`/api/public/plan/woche/${datum}`)).json();
+  }
 }
 
-async function _fetchPlan() {
-  plaene.value = await (await fetch(`/api/public/plan`)).json();
-  console.log(plaene.value)
+async function _fetchCurrentPlan() {
+  const datum = new Date().toISOString().substring(0, 10);
+  wochenplan.value = await (await fetch(`/api/public/plan/woche/datum/${datum}`)).json();
 }
 
 async function _fetchPlanByWoche(woche: string) {
   wochenplan.value = await (await fetch(`/api/public/plan/${woche}`)).json();
-  console.log(wochenplan.value)
 }
 
 async function login() {
-  keycloak.login().then(r => {
-    console.log(r)
-  })
+  await keycloak.login()
 }
 
-async function logout() {
-  keycloak.logout().then(r => {
-    console.log(r)
-  })
-}
-
-_fetchPlanByWoche("2024-33")
+_fetchCurrentPlan()
 </script>
 
 <template>
-  <div>
-    <table style="width: 1000px;">
-      <tr>
-        <td v-for="(tag) in wochenplan" style="width: 20%; vertical-align: top; padding: 0.5rem;">
-          <table v-if="new Date().toDateString() == new Date(tag.datum).toDateString()"
-                 style="width: 100%;">
-            <tr>
-              <td>
-                <p style="padding-bottom: 0.5rem;" class="heute"><b>{{ tag.wochentag }},<br>
-                  {{ new Date(tag.datum).getDate() }}.
-                  {{ new Date(tag.datum).toLocaleString('de-de', {month: 'long'}) }}
-                  {{ new Date(tag.datum).toLocaleString('de-de', {year: 'numeric'}) }}</b></p>
-              </td>
-            </tr>
-            <tr style="border: 3px solid forestgreen;">
-              <td style="padding: 0.5rem 0;">
-                <p class="heute"><b>Öffnungszeiten:<br>{{
-                    tag.start
-                  }} -
-                  {{ tag.ende }} Uhr</b></p>
-                <p v-if="tag.wald" style="padding-top: 0.5rem;"><b><i class="fa fa-tree"></i> Waldtag<br>Abfahrt: {{
-                    tag.abfahrt
-                  }}
-                  Uhr</b></p>
-              </td>
-            </tr>
-          </table>
-          <table v-else class="nichtheute" style="width: 100%;">
-            <tr>
-              <td>
-                <p style="padding-bottom: 0.5rem;">{{ tag.wochentag }},<br>
-                  {{ new Date(tag.datum).getDate() }}.
-                  {{ new Date(tag.datum).toLocaleString('de-de', {month: 'long'}) }}
-                  {{ new Date(tag.datum).toLocaleString('de-de', {year: 'numeric'}) }}</p>
-              </td>
-            </tr>
-            <tr style="border: 3px solid lightgray;">
-              <td style="padding: 0.5rem 0;">
-                <p class="nichtheute">
-                  Öffnungszeiten:<br>{{ tag.start }} - {{
-                    tag.ende
-                  }} Uhr</p>
-                <p v-if="tag.wald" style="padding-top: 0.5rem;"><b><i class="fa fa-tree"></i> Waldtag<br>Abfahrt: {{
-                    tag.abfahrt
-                  }}
-                  Uhr</b></p>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-  </div>
+  <div style="height: 1rem;"></div>
 
-  <div style="height: 10rem;"></div>
+  <div class="d-flex-column align-items-start">
+    <h3 class="txt-mw px-3">Kila Mooswuffel</h3>
+    <h6 class="txt-mw px-3 pb-3">
+      {{ new Date(wochenplan[0].datum).getDate() }}.
+      - {{ new Date(wochenplan[4].datum).getDate() }}.
+      {{ new Date(wochenplan[4].datum).toLocaleString('de-de', {month: 'long'}) }}
+      {{ new Date(wochenplan[4].datum).toLocaleString('de-de', {year: 'numeric'}) }}</h6>
+    <div>
+      <div class="d-flex flex-wrap justify-content-start align-items-baseline">
+        <div v-for="(tag) in wochenplan">
+          <div v-if="new Date(tag.datum).getDate() >= new Date().getDate()" class="card m-3"
+               style="width: 200px;"
+               v-bind:style="[new Date().toDateString() == new Date(tag.datum).toDateString() ? {'color': 'forestgreen', 'border': '2px solid forestgreen'} : {'color': 'gray'}]">
+            <div class="card-header"
+                 v-bind:style="[new Date().toDateString() == new Date(tag.datum).toDateString() ? {'background-color': 'forestgreen', 'color': 'white', 'border-radius': '0'} : {}]">
+              <h5 class="my-1"><i v-if="tag.wald && tag.offen" class="fa fa-tree"></i> {{
+                  new Date(tag.datum).toLocaleString('de-de', {weekday: 'long'})
+                }}</h5>
+              <p class="card-title m-0">{{ new Date(tag.datum).getDate() }}.
+                {{ new Date(tag.datum).toLocaleString('de-de', {month: 'long'}) }}
+                {{ new Date(tag.datum).toLocaleString('de-de', {year: 'numeric'}) }}</p>
+            </div>
+            <div class="card-body"
+                 v-bind:style="[new Date().toDateString() == new Date(tag.datum).toDateString() ? {'color': 'forestgreen'} : {'color': 'gray'}]">
+              <p class="card-text m-0"><b>Öffnungszeiten:</b></p>
+                <div v-if="tag.offen">
+                  {{ tag.start.substring(0, 5) }} - {{ tag.ende.substring(0, 5) }} Uhr
+                    <p v-if="tag.wald" class="card-text m-0 pt-3 pb-0">
+                      <i class="fa fa-tree"></i>
+                    <b> Waldtag</b><br>
+                    Abfahrt: {{ tag.abfahrt.substring(0, 5) }} Uhr</p>
+                </div>
+                <div v-else>
+                  <p class="card-text m-0">geschlossen</p></div>
+              <p v-if="tag.kommentar" class="card-text txt-red m-0 pt-3">{{ tag.kommentar }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div>
-    <button @click="login">Anmelden</button>
-    <button @click="logout">Abmelden</button>
-    <button @click="_fetchPlan">Fetch Plan</button>
-    <button @click="_fetch">Fetch Benutzer</button>
+    <div style="height: 2rem;"></div>
+
+    <div class="d-flex justify-content-start">
+      <button v-if="!keycloak.authenticated" @click="login" class="btn btn-link">Anmelden</button>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.heute {
+.txt-mw {
   color: forestgreen;
 }
 
-.nichtheute {
-  color: gray;
-}
-
-.btn-bold {
-  font-weight: normal;
-}
-
-.icn-success {
-  color: lightseagreen;
-}
-
-.icn-space {
-  margin: 0 1rem;
-  width: 1rem;
-  text-align: center;
-}
-
-p {
-  margin: 0 1rem;
-  padding: 0;
-}
-
-h4 {
-  margin-bottom: 1rem;
+.txt-red {
+  color: darkred;
 }
 </style>
