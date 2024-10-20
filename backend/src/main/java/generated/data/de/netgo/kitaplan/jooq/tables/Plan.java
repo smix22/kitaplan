@@ -6,8 +6,6 @@ package de.netgo.kitaplan.jooq.tables;
 
 import de.netgo.kitaplan.jooq.Keys;
 import de.netgo.kitaplan.jooq.Public;
-import de.netgo.kitaplan.jooq.tables.Benutzer.BenutzerPath;
-import de.netgo.kitaplan.jooq.tables.BenutzerPlan.BenutzerPlanPath;
 import de.netgo.kitaplan.jooq.tables.records.PlanRecord;
 
 import java.time.LocalDate;
@@ -17,13 +15,9 @@ import java.util.UUID;
 
 import org.jooq.Condition;
 import org.jooq.Field;
-import org.jooq.ForeignKey;
-import org.jooq.InverseForeignKey;
 import org.jooq.Name;
-import org.jooq.Path;
 import org.jooq.PlainSQL;
 import org.jooq.QueryPart;
-import org.jooq.Record;
 import org.jooq.SQL;
 import org.jooq.Schema;
 import org.jooq.Select;
@@ -96,7 +90,7 @@ public class Plan extends TableImpl<PlanRecord> {
     /**
      * The column <code>public.plan.abfahrt</code>.
      */
-    public final TableField<PlanRecord, LocalTime> ABFAHRT = createField(DSL.name("abfahrt"), SQLDataType.LOCALTIME(6).nullable(false).defaultValue(DSL.field(DSL.raw("'08:30:00'::time without time zone"), SQLDataType.LOCALTIME)), this, "");
+    public final TableField<PlanRecord, LocalTime> ABFAHRT = createField(DSL.name("abfahrt"), SQLDataType.LOCALTIME(6).nullable(false).defaultValue(DSL.field(DSL.raw("'09:00:00'::time without time zone"), SQLDataType.LOCALTIME)), this, "");
 
     /**
      * The column <code>public.plan.kommentar</code>.
@@ -132,37 +126,6 @@ public class Plan extends TableImpl<PlanRecord> {
         this(DSL.name("plan"), null);
     }
 
-    public <O extends Record> Plan(Table<O> path, ForeignKey<O, PlanRecord> childPath, InverseForeignKey<O, PlanRecord> parentPath) {
-        super(path, childPath, parentPath, PLAN);
-    }
-
-    /**
-     * A subtype implementing {@link Path} for simplified path-based joins.
-     */
-    public static class PlanPath extends Plan implements Path<PlanRecord> {
-        public <O extends Record> PlanPath(Table<O> path, ForeignKey<O, PlanRecord> childPath, InverseForeignKey<O, PlanRecord> parentPath) {
-            super(path, childPath, parentPath);
-        }
-        private PlanPath(Name alias, Table<PlanRecord> aliased) {
-            super(alias, aliased);
-        }
-
-        @Override
-        public PlanPath as(String alias) {
-            return new PlanPath(DSL.name(alias), this);
-        }
-
-        @Override
-        public PlanPath as(Name alias) {
-            return new PlanPath(alias, this);
-        }
-
-        @Override
-        public PlanPath as(Table<?> alias) {
-            return new PlanPath(alias.getQualifiedName(), this);
-        }
-    }
-
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
@@ -171,27 +134,6 @@ public class Plan extends TableImpl<PlanRecord> {
     @Override
     public UniqueKey<PlanRecord> getPrimaryKey() {
         return Keys.PLAN_PKEY;
-    }
-
-    private transient BenutzerPlanPath _benutzerPlan;
-
-    /**
-     * Get the implicit to-many join path to the
-     * <code>public.benutzer_plan</code> table
-     */
-    public BenutzerPlanPath benutzerPlan() {
-        if (_benutzerPlan == null)
-            _benutzerPlan = new BenutzerPlanPath(this, null, Keys.BENUTZER_PLAN__BENUTZER_PLAN_PLAN_ID_FKEY.getInverseKey());
-
-        return _benutzerPlan;
-    }
-
-    /**
-     * Get the implicit many-to-many join path to the
-     * <code>public.benutzer</code> table
-     */
-    public BenutzerPath benutzer() {
-        return benutzerPlan().benutzer();
     }
 
     @Override

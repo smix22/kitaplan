@@ -4,8 +4,6 @@
 package de.netgo.kitaplan.jooq;
 
 
-import de.netgo.kitaplan.jooq.tables.Benutzer;
-import de.netgo.kitaplan.jooq.tables.BenutzerPlan;
 import de.netgo.kitaplan.jooq.tables.Plan;
 
 import java.util.Arrays;
@@ -30,16 +28,6 @@ public class Public extends SchemaImpl {
     public static final Public PUBLIC = new Public();
 
     /**
-     * The table <code>public.benutzer</code>.
-     */
-    public final Benutzer BENUTZER = Benutzer.BENUTZER;
-
-    /**
-     * The table <code>public.benutzer_plan</code>.
-     */
-    public final BenutzerPlan BENUTZER_PLAN = BenutzerPlan.BENUTZER_PLAN;
-
-    /**
      * The table <code>public.plan</code>.
      */
     public final Plan PLAN = Plan.PLAN;
@@ -60,8 +48,6 @@ public class Public extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
-            Benutzer.BENUTZER,
-            BenutzerPlan.BENUTZER_PLAN,
             Plan.PLAN
         );
     }
