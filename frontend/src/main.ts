@@ -7,7 +7,7 @@ import router from './router'
 import Keycloak from 'keycloak-js';
 
 export const keycloak = new Keycloak({
-  url: 'http://localhost:9999',
+  url: 'http://localhost:9999', // https://keycloak.smix.me
   realm: 'kita-realm',
   clientId: 'frontend'
 });

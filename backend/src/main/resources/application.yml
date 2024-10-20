@@ -1,13 +1,11 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:7432/kp
+    url: jdbc:postgresql://localhost:7432/kp # 5432
     username: admin
     password: admin
 
   flyway:
     enabled: true
-
-
 
   threads:
     virtual:
@@ -18,3 +16,6 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${ISSUER_URL:http://localhost:9999/realms/kita-realm}
+
+server:
+#  port: 8081

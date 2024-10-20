@@ -1,13 +1,13 @@
 package de.netgo.kitaplan.plan;
 
 import static de.netgo.kitaplan.jooq.Tables.PLAN;
-import static java.util.UUID.randomUUID;
 
-import de.netgo.kitaplan.jooq.tables.daos.PlanDao;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import org.jooq.DSLContext;
+import org.jooq.impl.QOM;
+import org.jooq.impl.QOM.CurrentDate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +16,7 @@ public class PlanService {
 
   private final DSLContext dsl;
 
-  PlanService(final DSLContext dsl, final PlanDao planDao) {
+  PlanService(final DSLContext dsl) {
     this.dsl = dsl;
   }
 
@@ -25,7 +25,8 @@ public class PlanService {
     return dsl.select(PLAN.WOCHE, PLAN.DATUM)
         .distinctOn(PLAN.WOCHE)
         .from(PLAN)
-        .orderBy(PLAN.WOCHE)
+        .where(PLAN.DATUM.greaterOrEqual(LocalDate.now()))
+        .orderBy(PLAN.WOCHE, PLAN.DATUM)
         .fetchInto(PlanDto.class);
   }
 

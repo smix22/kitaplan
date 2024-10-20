@@ -29,7 +29,7 @@ public class PlanController {
     return planService.findAllPlaene();
   }
 
-  @GetMapping(value = "/plan/{woche}", produces = APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/plan/wochen/{woche}", produces = APPLICATION_JSON_VALUE)
   public List<PlanDto> getPlanByWoche(@PathVariable("woche") String woche) {
     return planService.findPlanByWoche(woche);
   }
