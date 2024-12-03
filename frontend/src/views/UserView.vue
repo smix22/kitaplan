@@ -4,13 +4,53 @@ import { keycloak } from '@/main'
 
 const wochenplan = ref()
 let woche = ref()
-let aktuelleWoche = ref()
 let anfangDerWoche = ref()
 let endeDerWoche = ref()
+let aktuelleWoche = ref()
 let isAktuelleWoche = ref(true)
+let aktuellesDatum = ref()
+let isAktuellesDatum = ref(true)
 
 // Bei Seitenaufruf aktuelle Woche laden
 getAktuelleWoche()
+
+async function getAktuellesDatum() {
+  const datum = new Date()
+  aktuellesDatum.value = datum
+
+  const neujahr = new Date(new Date().getFullYear(), 0, 1)
+  const tage = Math.floor((datum.getTime() - neujahr.getTime()) / 86_400_000)
+  woche.value = Math.floor(tage / 7) + 1
+  let tageDiff = 0
+
+  // Am Wochenende nächste Woche laden
+  if (new Date().getDay() == 0 || new Date().getDay() == 6) {
+    woche.value += 1
+    aktuellesDatum.value.setDate(aktuellesDatum.value.getDate() + 7)
+    tageDiff += 7
+  }
+
+  aktuelleWoche.value = woche.value
+
+  await getPlanByDatum(tageDiff)
+  await scrollToHeute(new Date().toDateString())
+}
+
+async function getPlanByDatum(tageDiff: number) {
+  let datum = new Date()
+  datum.setDate(datum.getDate() + tageDiff)
+
+  const neujahr = new Date(datum.getFullYear(), 0, 1)
+  const tage = Math.floor((datum.getTime() - neujahr.getTime()) / 86_400_000)
+  woche.value = Math.floor(tage / 7) + 1
+
+  const jahr = datum.getFullYear()
+
+  wochenplan.value = await (await fetch(`/api/public/plan/wochen/${jahr}-${woche.value}`)).json()
+
+  anfangDerWoche = wochenplan.value[0].datum
+  endeDerWoche = wochenplan.value[4].datum
+}
 
 async function getAktuelleWoche() {
   const datum = new Date()
@@ -36,7 +76,6 @@ async function getPlanByWoche(neueWoche: number) {
   isAktuelleWoche.value = neueWoche == aktuelleWoche.value
   woche.value = neueWoche
 
-  // TODO Checken, ob neueWoche 0 ist oder schon im neuen Jahr liegt
   const jahr = new Date().getFullYear()
 
   wochenplan.value = await (await fetch(`/api/public/plan/wochen/${jahr}-${woche.value}`)).json()
@@ -45,8 +84,8 @@ async function getPlanByWoche(neueWoche: number) {
   endeDerWoche = wochenplan.value[4].datum
 }
 
-async function scrollToHeute(date: string) {
-  const element = document.getElementById(date)
+async function scrollToHeute(datum: string) {
+  const element = document.getElementById(datum)
 
   if (element) {
     const top = element!.offsetTop - 168
