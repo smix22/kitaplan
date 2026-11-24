@@ -137,7 +137,9 @@ _fetchCurrentPlan()
                   :disabled="new Date(tag.datum + 'T16:30:00') < new Date()"
                   @change="updatePlan(tag.id, index)"
                 />
-                <b>Öffnungszeiten</b>
+                <span class="px-2">
+                  <b>Öffnungszeiten</b>
+                </span>
               </p>
               <div v-if="tag.offen">
                 <div class="input-group input-group-sm pt-2">
@@ -174,8 +176,9 @@ _fetchCurrentPlan()
                     :disabled="new Date(tag.datum + 'T16:30:00') < new Date()"
                     @change="updatePlan(tag.id, index)"
                   />
-                  <i class="fa fa-tree"></i>
-                  <b> Waldtag</b>
+                  <span class="px-2">
+                    <i class="fa fa-tree"></i> <b>Waldtag</b>
+                  </span>
                 </p>
                 <div v-if="tag.wald" class="input-group input-group-sm pt-2">
                   <span class="input-group-text">Abfahrt</span>
@@ -198,7 +201,11 @@ _fetchCurrentPlan()
                   />
                 </div>
               </div>
-              <p class="card-text m-0 pt-3 pb-2"><b>Kommentar:</b></p>
+              <p class="card-text m-0 pt-3 pb-2">
+                <span>
+                  <i class="fa fa-bell"></i> <b>Kommentar:</b>
+                </span>
+              </p>
               <div class="input-group input-group-sm pb-1">
                 <input
                   type="text"

@@ -13,7 +13,7 @@ plugins {
 	id 'nu.studer.jooq' version '9.0'
 }
 
-group = 'de.netgo'
+group = 'smix'
 version = '0.0.1-SNAPSHOT'
 
 java {

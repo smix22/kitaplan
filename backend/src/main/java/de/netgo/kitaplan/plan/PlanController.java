@@ -38,6 +38,7 @@ public class PlanController {
   public List<PlanDto> getTagById(@PathVariable("id") UUID id) {
     return planService.findTagById(id);
   }
+
   @GetMapping(value = "/plan/woche/{datum}", produces = APPLICATION_JSON_VALUE)
   public List<PlanDto> getPlanByDatum(@PathVariable("datum") LocalDate datum) {
     return planService.findPlanByDatum(datum);
